@@ -153,10 +153,12 @@ public class AmazonTop100PositiveReviewers extends Configured implements Tool {
 				
 				JsonObject jsonObject = jsonTree.getAsJsonObject();
 				//boolean isVerified = jsonObject.get("verified").getAsBoolean();
-				 boolean verified = jsonObject.get("verified").getAsBoolean();
+				 //boolean verified = jsonObject.get("verified").getAsBoolean();
+				String verified = jsonObject.get("verified").getAsString();
+
 				double overall_review = Double.parseDouble(jsonObject.get("overall").getAsString());
 				
-				if(overall_review >= 4 && verified == true)
+				if(overall_review >= 4 && verified.trim().equalsIgnoreCase("true"))
 				{
 				    //String reviewerID = jsonObject.get("reviewerID").getAsString();
 				    String reviewer = jsonObject.get("reviewerName").getAsString().split(" ")[0];
