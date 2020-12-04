@@ -64,7 +64,7 @@ public class AmazonTop100PositiveReviewers extends Configured implements Tool {
 
     		// This helper will configure how table data feeds into the "map" method
 		TableMapReduceUtil.initTableMapperJob(
-			"rfox12:reviews_10000",        	// input HBase table name
+			"rfox12:reviews",        	// input HBase table name
 			scan,             		// Scan instance to control CF and attribute selection
 			MapReduceMapper.class,   	// Mapper class
 			Text.class,             	// Mapper output key
@@ -156,13 +156,13 @@ public class AmazonTop100PositiveReviewers extends Configured implements Tool {
 				 //boolean verified = jsonObject.get("verified").getAsBoolean();
 				String verified = jsonObject.get("verified").getAsString();
 
-				double overall_review = Double.parseDouble(jsonObject.get("overall").getAsString());
+				double overall = Double.parseDouble(jsonObject.get("overall").getAsString());
 				
-				if(overall_review >= 4 && verified.trim().equalsIgnoreCase("true"))
+				if(overall == 4.0 || overall == 5.0 && verified.trim().equalsIgnoreCase("true"))
 				{
 				    //String reviewerID = jsonObject.get("reviewerID").getAsString();
 				    String reviewer = jsonObject.get("reviewerName").getAsString().split(" ")[0];
-				    double overall = Double.parseDouble(jsonObject.get("overall").getAsString());
+				    
 				
 				    reviewerAverage.setAverage(overall);
 				    reviewerAverage.setCount(1);
