@@ -10,7 +10,7 @@
 `javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/client/*:/opt/cloudera/parcels/CDH/lib/hbase/* AmazonTop100PositiveReviewers.java -d build -Xlint`
 6. Now we wrap up our code into a Java "jar" file: `jar -cvf Process_toppositiveverifiedReviewers.jar -C build/ .`
 7. This is the final step  
- - Note that you will need to delete the output folder if it already exists: `hadoop fs -rm -r /user/smamilla/Top100PositiveVerified_Reviewers` otherwise you will get an "Exception in thread "main" org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://dsba-nameservice/user/... type of error.
+ - Note that you will need to delete the output folder if it already exists: `hadoop fs -rm -r /user/spaditha/Top100PositiveVerified_Reviewers` otherwise you will get an "Exception in thread "main" org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://dsba-nameservice/user/... type of error.
  - Now we execute the map-reduce job: ` HADOOP_CLASSPATH=$(hbase mapredcp):/etc/hbase/conf:Process_toppositiveverifiedReviewers.jar hadoop jar Process_toppositiveverifiedReviewers.jar AmazonTop100PositiveReviewers '/user/spaditha/Top100PositiveVerified_Reviewers'`
  - Once that job completes, you can concatenate the output across all output files with: `hadoop fs -cat /user/spaditha/Top100PositiveVerified_Reviewers/*
  ` or if you have output that is too big for displaying on the terminal screen you can do `hadoop fs -cat /user/spaditha/Top100PositiveVerified_Reviewers/* | sort -n -k3 -r > TopPositiveVerified_Reviewers.txt` 
